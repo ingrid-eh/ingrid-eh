@@ -93,7 +93,9 @@ def _base_form(word: str) -> str:
     return w
 
 
-def _replace_ambiguous_pronouns(sentence: str, last_entity: Optional[str]) -> (str, List[str]):
+def _replace_ambiguous_pronouns(
+    sentence: str, last_entity: Optional[str], last_actor: Optional[str]
+) -> (str, List[str]):
     unresolved = []
     tokens = re.findall(r"\w+|[^\w\s]", sentence)
     rewritten_tokens = []
@@ -102,6 +104,12 @@ def _replace_ambiguous_pronouns(sentence: str, last_entity: Optional[str]) -> (s
         if lower in PRONOUNS:
             if lower in {"it", "this", "that", "these", "those"} and last_entity:
                 replacement = last_entity
+                if token[:1].isupper():
+                    replacement = replacement[:1].upper() + replacement[1:]
+                rewritten_tokens.append(replacement)
+                continue
+            if lower in {"he", "she", "him", "her", "his", "hers"} and last_actor:
+                replacement = last_actor
                 if token[:1].isupper():
                     replacement = replacement[:1].upper() + replacement[1:]
                 rewritten_tokens.append(replacement)
@@ -204,10 +212,11 @@ def rewrite_instructions(text: str) -> Dict[str, Any]:
     units: List[InstructionUnit] = []
     rewritten_sentences: List[str] = []
     last_entity: Optional[str] = None
+    last_actor: Optional[str] = None
 
     for sentence in sentences:
         active_sentence, passive_detected = _convert_passive(sentence)
-        resolved_sentence, unresolved = _replace_ambiguous_pronouns(active_sentence, last_entity)
+        resolved_sentence, unresolved = _replace_ambiguous_pronouns(active_sentence, last_entity, last_actor)
         passive_remaining = _contains_passive(resolved_sentence)
         actor, action, obj = _parse_actor_action_object(resolved_sentence)
         constraints = _extract_constraints(resolved_sentence)
@@ -235,6 +244,8 @@ def rewrite_instructions(text: str) -> Dict[str, Any]:
             nounish = [w for w in obj.split() if w.lower() not in STOPWORDS]
             if nounish:
                 last_entity = " ".join(nounish)
+        if actor:
+            last_actor = actor
 
     unresolved_all = sorted({r for unit in units for r in unit.unresolved_references})
     passive_remaining_all = any(unit.passive_remaining for unit in units)

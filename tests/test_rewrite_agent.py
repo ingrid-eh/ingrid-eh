@@ -22,7 +22,7 @@ class RewriteAgentTests(unittest.TestCase):
     def test_mixed_multi_sentence_input(self):
         result = rewrite_instructions("The checklist was completed by Ana. Then she sent it to QA.")
         self.assertIn("Ana completed The checklist.", result["human_readable"])
-        self.assertIn("Then she sent checklist to QA.", result["human_readable"])
+        self.assertIn("Then Ana sent checklist to QA.", result["human_readable"])
         self.assertEqual(result["quality_checks"]["unresolved_references"], [])
 
     def test_no_change_when_already_clear(self):
