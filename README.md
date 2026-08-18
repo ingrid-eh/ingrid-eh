@@ -1,8 +1,8 @@
 - 👋 Hi, I’m @ingrid-eh
-- 👀 I’m interested in saving everything
-- 🌱 I’m currently learning mermaid and machine learning
-- 💞️ I’m looking to collaborate on machine learning applications for pharmacovigilance
-- 📫 How to reach me 
+- 👀 I’m interested in reducing friction
+- 🌱 I’m currently learning how to use agents in the cloud
+- 💞️ I’m looking to collaborate on medical writing platforms
+- 📫 How to reach me:LinkedIn 
 - 😄 Pronouns: she/her
 - ⚡ Fun fact: I learned to complete a rubik's cube in 1980
 
