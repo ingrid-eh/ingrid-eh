@@ -1,6 +1,6 @@
 import re
 from dataclasses import dataclass, asdict
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Tuple
 
 
 PRONOUNS = {
@@ -20,6 +20,7 @@ PRONOUNS = {
     "their",
     "theirs",
 }
+PREPOSITIONS = {"to", "for", "with", "from", "in", "on", "at", "by", "into", "onto"}
 
 PASSIVE_AUX = r"(?:is|are|was|were|be|been|being)"
 STOPWORDS = {
@@ -53,6 +54,25 @@ IRREGULAR_PARTICIPLES = {
     "read": "read",
     "built": "build",
     "left": "leave",
+    "completed": "complete",
+    "approved": "approve",
+    "changed": "change",
+    "closed": "close",
+    "used": "use",
+}
+
+IRREGULAR_PAST = {
+    "written": "wrote",
+    "given": "gave",
+    "taken": "took",
+    "done": "did",
+    "made": "made",
+    "seen": "saw",
+    "known": "knew",
+    "sent": "sent",
+    "read": "read",
+    "built": "built",
+    "left": "left",
 }
 
 
@@ -88,62 +108,112 @@ def _base_form(word: str) -> str:
         if len(root) > 2 and root[-1] == root[-2]:
             root = root[:-1]
         return root
-    if w.endswith("en") and len(w) > 3:
-        return w[:-2]
     return w
 
 
 def _replace_ambiguous_pronouns(
     sentence: str, last_entity: Optional[str], last_actor: Optional[str]
-) -> (str, List[str]):
+) -> Tuple[str, List[str]]:
     unresolved = []
     tokens = re.findall(r"\w+|[^\w\s]", sentence)
     rewritten_tokens = []
     for token in tokens:
         lower = token.lower()
         if lower in PRONOUNS:
+            resolved = False
             if lower in {"it", "this", "that", "these", "those"} and last_entity:
                 replacement = last_entity
                 if token[:1].isupper():
                     replacement = replacement[:1].upper() + replacement[1:]
                 rewritten_tokens.append(replacement)
-                continue
-            if lower in {"he", "she", "him", "her", "his", "hers"} and last_actor:
+                resolved = True
+            elif lower in {"he", "she", "him", "her", "his", "hers"} and last_actor:
                 replacement = last_actor
                 if token[:1].isupper():
                     replacement = replacement[:1].upper() + replacement[1:]
                 rewritten_tokens.append(replacement)
-                continue
-            unresolved.append(lower)
+                resolved = True
+            elif lower in {"they", "them", "their", "theirs"} and last_actor:
+                replacement = last_actor
+                if token[:1].isupper():
+                    replacement = replacement[:1].upper() + replacement[1:]
+                rewritten_tokens.append(replacement)
+                resolved = True
+
+            if not resolved:
+                unresolved.append(lower)
+                rewritten_tokens.append(token)
+            continue
         rewritten_tokens.append(token)
     rebuilt = " ".join(rewritten_tokens)
     rebuilt = re.sub(r"\s+([,.;:!?])", r"\1", rebuilt)
     return rebuilt, sorted(set(unresolved))
 
 
-def _convert_passive(sentence: str) -> (str, bool):
+def _capitalize_sentence_start(text: str) -> str:
+    if not text:
+        return text
+    return text[0].upper() + text[1:]
+
+
+def _normalize_moved_object(obj: str) -> str:
+    """Lowercase a leading article when moving an object into mid-sentence position."""
+    return re.sub(r"^(The|A|An)\b", lambda m: m.group(1).lower(), obj, count=1)
+
+
+def _participle_to_active_verb(participle: str, aux: str) -> str:
+    p = participle.lower()
+    a = aux.lower()
+    if a in {"was", "were", "been", "being", "be"}:
+        if p in IRREGULAR_PAST:
+            return IRREGULAR_PAST[p]
+        return p if p.endswith("ed") else _base_form(p)
+    if a in {"is", "are"}:
+        base = _base_form(p)
+        if base.endswith(("s", "x", "z", "ch", "sh")):
+            return base + "es"
+        if base.endswith("y") and len(base) > 1 and base[-2] not in "aeiou":
+            return base[:-1] + "ies"
+        return base + "s"
+    return _base_form(p)
+
+
+def _normalize_entity_phrase(obj: str) -> str:
+    cleaned = obj.strip().rstrip(",.;:!?")
+    words = cleaned.split()
+    if not words:
+        return cleaned
+    phrase = [words[0]]
+    for w in words[1:]:
+        if w.lower() in PREPOSITIONS:
+            break
+        phrase.append(w)
+    return " ".join(phrase)
+
+
+def _convert_passive(sentence: str) -> Tuple[str, bool]:
     modal_pattern = re.compile(
         rf"^(?P<object>.+?)\s+(?P<modal>must|should|may|can|will)\s+be\s+(?P<verb>\w+)\s+by\s+(?P<actor>.+?)(?P<end>[.!?]?)$",
         re.IGNORECASE,
     )
     m = modal_pattern.match(sentence)
     if m:
-        obj = m.group("object").strip()
+        obj = _normalize_moved_object(m.group("object").strip())
         modal = m.group("modal").lower()
         verb = _base_form(m.group("verb"))
-        actor = m.group("actor").strip()
+        actor = _capitalize_sentence_start(m.group("actor").strip())
         end = m.group("end") or "."
         return f"{actor} {modal} {verb} {obj}{end}", True
 
     past_pattern = re.compile(
-        rf"^(?P<object>.+?)\s+{PASSIVE_AUX}\s+(?P<verb>\w+)\s+by\s+(?P<actor>.+?)(?P<end>[.!?]?)$",
+        rf"^(?P<object>.+?)\s+(?P<aux>{PASSIVE_AUX})\s+(?P<verb>\w+)\s+by\s+(?P<actor>.+?)(?P<end>[.!?]?)$",
         re.IGNORECASE,
     )
     m = past_pattern.match(sentence)
     if m:
-        obj = m.group("object").strip()
-        verb = m.group("verb").strip().lower()
-        actor = m.group("actor").strip()
+        obj = _normalize_moved_object(m.group("object").strip())
+        verb = _participle_to_active_verb(m.group("verb").strip(), m.group("aux").strip())
+        actor = _capitalize_sentence_start(m.group("actor").strip())
         end = m.group("end") or "."
         return f"{actor} {verb} {obj}{end}", True
 
@@ -152,7 +222,7 @@ def _convert_passive(sentence: str) -> (str, bool):
 
 def _extract_conditions(sentence: str) -> List[str]:
     matches = re.findall(r"\b(if|when|unless)\b(.+?)(?:[.;!?]|$)", sentence, flags=re.IGNORECASE)
-    return [f"{kw.lower()}{rest.strip()}" for kw, rest in matches]
+    return [f"{kw.lower()} {rest.strip()}" for kw, rest in matches]
 
 
 def _extract_constraints(sentence: str) -> List[str]:
@@ -166,11 +236,15 @@ def _extract_constraints(sentence: str) -> List[str]:
     return constraints
 
 
-def _parse_actor_action_object(sentence: str) -> (Optional[str], Optional[str], Optional[str]):
+def _parse_actor_action_object(sentence: str) -> Tuple[Optional[str], Optional[str], Optional[str]]:
     cleaned = sentence.strip().rstrip(".!?")
     words = cleaned.split()
     if len(words) < 2:
         return cleaned if cleaned else None, None, None
+    if len(words) >= 3 and words[1].lower() in {"the", "a", "an"}:
+        action = words[0]
+        obj = " ".join(words[1:])
+        return None, action, obj
     actor = words[0]
     action = words[1]
     obj = " ".join(words[2:]) if len(words) > 2 else None
@@ -190,11 +264,11 @@ def _content_terms(sentence: str) -> set:
     return terms
 
 
-def _confidence(original: str, rewritten: str, unresolved_count: int, passive_remaining: bool) -> (float, List[str]):
+def _confidence(original: str, rewritten: str, unresolved_count: int, passive_remaining: bool) -> Tuple[float, List[str]]:
     notes = []
     original_terms = _content_terms(original)
     rewritten_terms = _content_terms(rewritten)
-    overlap = len(original_terms & rewritten_terms) / max(len(original_terms), 1)
+    overlap = len(original_terms & rewritten_terms) / max(len(original_terms | rewritten_terms), 1)
     score = overlap
     if unresolved_count:
         score -= 0.3
@@ -241,9 +315,7 @@ def rewrite_instructions(text: str) -> Dict[str, Any]:
         rewritten_sentences.append(resolved_sentence)
 
         if obj:
-            nounish = [w for w in obj.split() if w.lower() not in STOPWORDS]
-            if nounish:
-                last_entity = " ".join(nounish)
+            last_entity = _normalize_entity_phrase(obj)
         if actor:
             last_actor = actor
 

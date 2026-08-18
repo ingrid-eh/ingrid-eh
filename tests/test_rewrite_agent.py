@@ -6,7 +6,7 @@ from rewrite_agent import rewrite_instructions
 class RewriteAgentTests(unittest.TestCase):
     def test_pronoun_resolution_with_previous_object(self):
         result = rewrite_instructions("Review the report. Send it to legal.")
-        self.assertIn("Send report to legal.", result["human_readable"])
+        self.assertIn("Send the report to legal.", result["human_readable"])
         self.assertEqual(result["quality_checks"]["unresolved_references"], [])
 
     def test_unresolved_pronoun_flagged(self):
@@ -16,13 +16,13 @@ class RewriteAgentTests(unittest.TestCase):
 
     def test_passive_to_active_conversion(self):
         result = rewrite_instructions("The report must be reviewed by the manager.")
-        self.assertEqual(result["human_readable"], "the manager must review The report.")
+        self.assertEqual(result["human_readable"], "The manager must review the report.")
         self.assertFalse(result["quality_checks"]["passive_sentences_remaining"])
 
     def test_mixed_multi_sentence_input(self):
         result = rewrite_instructions("The checklist was completed by Ana. Then she sent it to QA.")
-        self.assertIn("Ana completed The checklist.", result["human_readable"])
-        self.assertIn("Then Ana sent checklist to QA.", result["human_readable"])
+        self.assertIn("Ana completed the checklist.", result["human_readable"])
+        self.assertIn("Then Ana sent the checklist to QA.", result["human_readable"])
         self.assertEqual(result["quality_checks"]["unresolved_references"], [])
 
     def test_no_change_when_already_clear(self):
