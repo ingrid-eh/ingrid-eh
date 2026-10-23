@@ -27,6 +27,11 @@ patterns:
     regex: '^(BRF|IB|PROT|CSR|SAF|M2|DES|LCM)(-[A-Z0-9]+)+\.(spine|notes|guidance|study|components|slots|placement|alteration|overlays)\.md$'
     example: IB-FIRST.slots.md
     source: IB-FIRST building blocks
+  - id: notion-pointer
+    applies_to: Pointer in building-blocks/ to a Rhizome report filed in Notion (holds no copy)
+    regex: '^(BRF|IB|PROT|CSR|SAF|M2|DES|LCM)(-[A-Z0-9]+)+\.rhizome-report\.md$'
+    example: IB-FIRST.rhizome-report.md
+    source: rhizome-reports-and-diagrams-file-in-notion
   - id: base-file
     applies_to: Base placeholder or assembled base
     regex: '^(BRF|IB|PROT|CSR|SAF|M2|DES|LCM)(-[A-Z0-9]+)+\.base\.md$'
