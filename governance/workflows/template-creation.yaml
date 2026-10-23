@@ -54,13 +54,14 @@ steps:
     name_standing: recorded
     level: report
     standing: observed
-    output: "<LABEL>.study.md; <LABEL>.rhizome-report.md"
+    output: "<LABEL>.study.md"
     does: >-
-      Studies the base's sources through Rhizome AI, saves the report unedited,
-      and holds every difference for Ingrid's ruling. Unfiled sources found here
-      are filed in guidance-library before they can bind.
+      Studies the base's sources through Rhizome AI, files the report unedited
+      in Notion on the base's row (no copy in Box), and holds every difference
+      for Ingrid's ruling. Unfiled sources found here are filed in
+      guidance-library before they can bind.
     check: null
-    rulings: [research-through-rhizome, rhizome-binds-after-validation, templates-from-filed-sources-only, conflicts-ingrid-decides]
+    rulings: [research-through-rhizome, rhizome-reports-and-diagrams-file-in-notion, rhizome-binds-after-validation, templates-from-filed-sources-only, conflicts-ingrid-decides]
     events: [attach-rhizome-report-to-notion-row, file-new-guidance]
     evidence: {box_file_id: "2541840707636", file: IB-FIRST.study.md, run: 2026-10-21}
 
@@ -281,3 +282,12 @@ changes:
     steps_affected: [study-through-rhizome]
     source: {box_file_id: null, file: governance/workflows/template-creation.yaml}
     steps_sha256: e87d55507095ffe76cf4f7aab6b7f43a46b22b16b6c6c2f5cca30e8c31707c53
+  - id: chg-2026-10-23-rhizome-report-filed-in-notion
+    version: 0.4.0
+    date: '2026-10-23'
+    ruled_by: Ingrid
+    standing: ruled
+    summary: Study through Rhizome files the Rhizome report in Notion on the base's row, not in Box; the step no longer writes <LABEL>.rhizome-report.md
+    steps_affected: [study-through-rhizome]
+    source: {box_file_id: null, file: 'Claude Code session, 23 October 2026 (ruling rhizome-reports-and-diagrams-file-in-notion)'}
+    steps_sha256: 8ff3ef253d0be0db6c10a5a665d14d1f74415f300fefdb8ecb06c27f1595ef34

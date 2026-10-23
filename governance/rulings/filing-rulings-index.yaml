@@ -27,6 +27,16 @@ rulings:
     standing: ruled
     source: {file: "Claude Code session, 23 October 2026"}
 
+  - id: rhizome-reports-and-diagrams-file-in-notion
+    domain: filing
+    ruling: >-
+      Rhizome AI reports and Lucidchart diagrams are filed in Notion, not Box.
+      A research report is filed on the Notion row of the work it serves.
+    ruled_by: Ingrid
+    date: 2026-10-23
+    standing: ruled
+    source: {file: "Claude Code session, 23 October 2026 (corrects the Box home recorded earlier that day)"}
+
   # ── Filing and locations ─────────────────────────────────────────────────
   - id: where-mod-specs-live
     domain: filing

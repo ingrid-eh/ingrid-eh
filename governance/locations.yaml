@@ -67,13 +67,14 @@ homes:
     box_folder_id: "427541512490"
     note: Two copies exist (EH Standards and EH Standards › Mods). Which is the one copy is open.
   - artifact: Rhizome report
-    system: box
-    path: "<LABEL> <title>/building-blocks/<LABEL>.rhizome-report.md"
-    also: Attached to the base's Notion row
+    system: notion
+    path: The Notion row of the work it serves (for a base, its row in the base template tracker)
+    ruling: rhizome-reports-and-diagrams-file-in-notion
+    note: A copy in Box is a misfiled duplicate; Box files point to the Notion row
   - artifact: Diagram
-    system: lucidchart
-    path: Lucidchart; documents link to it
-    ruling: diagrams-in-lucidchart
+    system: notion
+    path: Drawn in Lucidchart; filed in Notion on the row or page of the work it serves
+    ruling: rhizome-reports-and-diagrams-file-in-notion; diagrams-in-lucidchart
 
 registers:
   - name: Mods register

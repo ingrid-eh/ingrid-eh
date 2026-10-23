@@ -6,10 +6,17 @@
 
 events:
   - id: attach-rhizome-report-to-notion-row
-    does: Attach the saved Rhizome report to the base's row in Notion
+    does: File the saved Rhizome report on the base's row in Notion. No copy is kept in Box
     system: notion
-    evidence: The base's Notion row carries the report
-    standing: observed
+    evidence: The base's Notion row carries the report, and the base's Box folder holds no copy
+    standing: ruled
+    ruling: rhizome-reports-and-diagrams-file-in-notion
+  - id: file-diagram-in-notion
+    does: File each Lucidchart diagram in Notion on the row or page of the work it serves
+    system: notion
+    evidence: The Notion row or page carries the Lucidchart diagram
+    standing: ruled
+    ruling: rhizome-reports-and-diagrams-file-in-notion
   - id: file-new-guidance
     does: >-
       File any source the study needs in guidance-library and add its row to

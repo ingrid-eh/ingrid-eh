@@ -34,7 +34,7 @@ You are given a base label, a Box folder, a file or a step that was just run. Ch
 | Filing | Each file sits in its home in `locations.yaml`. One copy only; any other place holds a pointer (`pointers-not-copies`). Flag duplicates, such as the two Mods register copies |
 | Language and vocabularies | Values for standing, route, placement, lock, publishing status, guidance role and the other vocabularies are in `vocabularies.yaml`. Labels are semantic, not positional. Attributions read "Ingrid, 22 October 2026". Proposed and observed material is never presented as settled |
 | Names | Run `python tools/govcheck.py names --as <pattern> NAME...` on every name. For a building block saved locally, run `python tools/govcheck.py block FILE` |
-| Repositories and tools | Research came through Rhizome AI and diagrams are in Lucidchart (`tooling.yaml`). Bases go to git only at Rule and publish. Released mods go to the GitHub component register only through the release gate |
+| Repositories and tools | Research came through Rhizome AI and diagrams are in Lucidchart (`tooling.yaml`). Both are filed in Notion on the row of the work they serve, never in Box (`rhizome-reports-and-diagrams-file-in-notion`); a copy in Box is a misfiled duplicate. Bases go to git only at Rule and publish. Released mods go to the GitHub component register only through the release gate |
 | Metadata tags and events | Each event the step sets off in the workflow happened, with the evidence `events.yaml` names. Check metatags against the tag set once Ingrid has filed it. Until then, report "tag set not filed" |
 
 Read Box with the Box tools, Notion with notion-fetch, Lucidchart with Lucid search, Rhizome with conversation_read. Do not web-fetch claude.ai, Notion or Lucid links.
@@ -65,7 +65,7 @@ Add the ruling to `filing-rulings-index.yaml` with a semantic kebab-case ID, its
 - Never upgrade standing. Proposed and observed are never reported as ruled. Never invent a ruling, a date or a source.
 - Never fill a gap from memory. Where governance is silent, say so and add an open item. Do not decide.
 - Where filed documents or rulings conflict, Ingrid decides (`conflicts-ingrid-decides`). Set out both positions with their sources.
-- Research goes to Rhizome AI. Diagrams go to Lucidchart. If a task needs either, say so and route it there. Do not substitute web search or Mermaid.
+- Research goes to Rhizome AI. Diagrams go to Lucidchart. If a task needs either, say so and route it there. Do not substitute web search or Mermaid. Rhizome reports and Lucidchart diagrams are filed in Notion, not Box.
 - Name things by what they are, never by position. Do not mint labels. If you must propose one, mark it minted.
 - Do not mention third-party writing platforms unless Ingrid raises them.
 

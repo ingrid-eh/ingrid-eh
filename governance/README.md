@@ -10,7 +10,7 @@ This folder holds the records the governance agent (`.claude/agents/governance.m
 | [naming.yaml](naming.yaml) | Naming patterns and forbidden forms |
 | [locations.yaml](locations.yaml) | Where each kind of artifact lives |
 | [events.yaml](events.yaml) | Events each step sets off |
-| [tooling.yaml](tooling.yaml) | Which tool does which job: research in Rhizome AI, diagrams in Lucidchart |
+| [tooling.yaml](tooling.yaml) | Which tool does which job: research in Rhizome AI, diagrams in Lucidchart, both filed in Notion |
 
 ## How a workflow change is recorded
 

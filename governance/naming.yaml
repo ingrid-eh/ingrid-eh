@@ -24,7 +24,7 @@ patterns:
     source: report-base-library; guidance-library
   - id: building-block
     applies_to: File in building-blocks/
-    regex: '^(BRF|IB|PROT|CSR|SAF|M2|DES|LCM)(-[A-Z0-9]+)+\.(spine|notes|guidance|study|rhizome-report|components|slots|placement|alteration|overlays)\.md$'
+    regex: '^(BRF|IB|PROT|CSR|SAF|M2|DES|LCM)(-[A-Z0-9]+)+\.(spine|notes|guidance|study|components|slots|placement|alteration|overlays)\.md$'
     example: IB-FIRST.slots.md
     source: IB-FIRST building blocks
   - id: base-file

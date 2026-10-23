@@ -51,13 +51,15 @@ class TestValidate(GovTestCase):
         self.assertIn("the steps changed since the last change record", out)
 
     def test_record_change_clears_the_block_and_bumps_version(self) -> None:
+        _, wf = govcheck.Registry.read(self.gov).workflows["WF-template-creation"]
+        expected = govcheck.bump(govcheck.current_version(wf), "minor")
         self.edit(WF, "check: Every part has a placement", "check: Every part has a placement and a reason")
         code, out = self.run_cli(
             "record-change", "--summary", "Set placement check asks for a reason",
             "--ruled-by", "Ingrid", "--date", "2026-10-24", "--steps", "set-placement",
         )
         self.assertEqual(code, 0, out)
-        self.assertIn("version 0.4.0", out)
+        self.assertIn(f"version {expected}", out)
         code, out = self.run_cli("validate")
         self.assertEqual(code, 0, out)
         page = (self.gov / "workflows/template-creation.md").read_text(encoding="utf-8")

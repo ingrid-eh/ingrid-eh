@@ -6,13 +6,18 @@ routes:
     tool: Rhizome AI
     mcp_prefix: mcp__Rhizome_AI__
     ruling: research-through-rhizome
-    output: Rhizome report saved unedited; binds only once Ingrid validates it (rhizome-binds-after-validation)
+    output: >-
+      Rhizome report saved unedited and filed in Notion on the row of the work
+      it serves (rhizome-reports-and-diagrams-file-in-notion); binds only once
+      Ingrid validates it (rhizome-binds-after-validation)
     flag_if: A research finding cites no Rhizome conversation and no filed source
   - job: Diagrams (flows, decision trees, maps)
     tool: Lucidchart
     mcp_prefix: mcp__Lucid__
     ruling: diagrams-in-lucidchart
-    output: Lucidchart document; the governed file links to it
+    output: >-
+      Lucidchart document, filed in Notion on the row or page of the work it
+      serves (rhizome-reports-and-diagrams-file-in-notion)
     flag_if: A diagram is embedded as an image, Mermaid or SVG with no Lucidchart link
   - job: Filing and file reads
     tool: Box

@@ -2,7 +2,7 @@
 
 # Template creation workflow
 
-Version 0.3.1 · Owner: Ingrid Witherell, MPH · Standing: observed · Pilot: IB-FIRST
+Version 0.4.0 · Owner: Ingrid Witherell, MPH · Standing: observed · Pilot: IB-FIRST
 
 Applies to: Every report base in _template structure › report-base-library. Building blocks are written to `<LABEL> <title>/building-blocks/`.
 
@@ -14,7 +14,7 @@ Step names marked † are minted and wait for a smart name.
 |---|---|---|---|---|---|
 | **Derive the spine †** | report | observed | <LABEL>.spine.md | — | — |
 | **Gather existing notes †** | report | observed | <LABEL>.notes.md | — | — |
-| **Study through Rhizome** | report | observed | <LABEL>.study.md; <LABEL>.rhizome-report.md | — | attach-rhizome-report-to-notion-row, file-new-guidance |
+| **Study through Rhizome** | report | observed | <LABEL>.study.md | — | attach-rhizome-report-to-notion-row, file-new-guidance |
 | **Point to guidance †** | report | observed | <LABEL>.guidance.md | — | update-guidance-map |
 | **Map sections to components** | report | observed | <LABEL>.components.md | Every section of the spine has a component, or its gap is recorded as a component requested | — |
 | **Route report-unique slots** | report | observed | <LABEL>.slots.md | No slot without a route, and every route carries the record that route requires | — |
@@ -51,11 +51,12 @@ Evidence: IB-FIRST.notes.md (Box 2541836277526), run 2026-10-21.
 
 ### Study through Rhizome
 
-Studies the base's sources through Rhizome AI, saves the report unedited, and holds every difference for Ingrid's ruling. Unfiled sources found here are filed in guidance-library before they can bind.
+Studies the base's sources through Rhizome AI, files the report unedited in Notion on the base's row (no copy in Box), and holds every difference for Ingrid's ruling. Unfiled sources found here are filed in guidance-library before they can bind.
 
 Rulings applied:
 
 - `research-through-rhizome` — Research is done through Rhizome AI. (Ingrid, 2026-10-23)
+- `rhizome-reports-and-diagrams-file-in-notion` — Rhizome AI reports and Lucidchart diagrams are filed in Notion, not Box. A research report is filed on the Notion row of the work it serves. (Ingrid, 2026-10-23)
 - `rhizome-binds-after-validation` — Rhizome searches bind only once Ingrid validates them. (Ingrid, 2026-10-21)
 - `templates-from-filed-sources-only` — Templates are built from source documents filed in guidance-library, never from memory. A finding resting on an unfiled source stays study material. (observed)
 - `conflicts-ingrid-decides` — Where filed documents conflict, Ingrid decides. (Ingrid, 2026-10-21)
@@ -183,3 +184,4 @@ Evidence: IB-FIRST.placement.md (Box 2542146135948), run not yet run.
 | 0.2.0 | 2026-10-22 | Declare overlays: overlays may prune an ICH spine and may add content within an existing section, replacing "overlays may only prune" for every base. | Ingrid | ruled | declare-overlays |
 | 0.3.0 | 2026-10-22 | The step "Tag stage and kind" moved to the end of the workflow. | Ingrid | ruled | tag-stage-and-kind |
 | 0.3.1 | 2026-10-23 | Workflow written down for the first time as one record, from the IB-FIRST building-block files. Rhizome AI named as the research tool on Study through Rhizome (ruling research-through-rhizome). No step changed. | — | observed | study-through-rhizome |
+| 0.4.0 | 2026-10-23 | Study through Rhizome files the Rhizome report in Notion on the base's row, not in Box; the step no longer writes <LABEL>.rhizome-report.md | Ingrid | ruled | study-through-rhizome |
