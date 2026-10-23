@@ -168,7 +168,8 @@ Evidence: IB-FIRST.placement.md (Box 2542146135948), run not yet run.
 
 | Item | Question |
 |---|---|
-| minted-step-names | Three steps carry no name in any source file: derive-spine, gather-notes and point-to-guidance. Their names here are minted. Give each a smart name. |
+| minted-step-names | No Box file names three steps: derive-spine, gather-notes and point-to-guidance. The Notion base tracker's "Workflow step" options do name them: "Derive the spine", "Seek notes" and "File the guidance". Confirm those are the names, and they replace the minted ones. |
+| notion-tracker-step-list | The Notion base tracker's step list differs from this record. It has "Test on a worked example" (not here), places "Tag stage and kind" seventh (against the ruling tag-stage-and-kind-at-end), and puts Derive the spine after Study through Rhizome. Which order is right, and is "Test on a worked example" a step? Found in the IB-FIRST audit, 23 October 2026. |
 | order-alteration-overlays | Set alteration and Declare overlays both ran on 22 October 2026 and no file says which came first. The overlays check needs a lock, so alteration is placed first here. Confirm. |
 | curate-vs-assemble | "Curate the base" is named once (IB-FIRST.slots.md). Confirm whether it is a separate step, and where it sits relative to Rule and publish. |
 | component-level-steps | Component-level work (literature references component; parts "set at component level") is named but has no steps. Confirm whether component level has its own workflow. |

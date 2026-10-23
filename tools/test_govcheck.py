@@ -138,6 +138,46 @@ class TestBlock(GovTestCase):
         self.assertEqual(code, 1)
         self.assertIn("writes <LABEL>.alteration.md", out)
 
+    def test_step_named_in_running_text(self) -> None:
+        # IB-FIRST.base.md: "Assembled ... at the workflow step **Assemble the base**."
+        path = self.write("IB-FIRST.base.md", (
+            "Assembled 22 October 2026 at the workflow step **Assemble the base**.\n\n## Check\n\nCounts match.\n"
+        ))
+        code, out = self.run_cli("block", str(path))
+        self.assertEqual(code, 0, out)
+        self.assertNotIn("Rule and publish", out)
+
+    def test_suffix_fallback_takes_first_step(self) -> None:
+        # Two steps write <LABEL>.base.md; with no step line the earlier one applies.
+        path = self.write("IB-FIRST.base.md", "Nothing here names a step.\n")
+        code, out = self.run_cli("block", str(path))
+        self.assertIn("expected **Assemble the base**", out)
+
+    def test_result_line_counts_as_check_result(self) -> None:
+        path = self.write("IB-FIRST.components.md", (
+            "Workflow step: **Map sections to components**\n\nResult: a component exists for every section.\n"
+        ))
+        code, out = self.run_cli("block", str(path))
+        self.assertEqual(code, 0, out)
+        self.assertNotIn("records no check result", out)
+
+    def test_lock_values_in_tables(self) -> None:
+        good = self.write("IB-FIRST.alteration.md", (
+            "Workflow step: **Set alteration**\n\n| Part | Lock | What may be altered |\n|---|---|---|\n"
+            "| Title Page | Hard: edition number | Nothing |\n| Summary | Soft, from approval | Composed text |\n"
+            "| Introduction | Set at component level | — |\n\n## Check, run 22 October 2026\n\nThe check passes.\n"
+        ))
+        code, out = self.run_cli("block", str(good))
+        self.assertEqual(code, 0, out)
+        bad = self.write("IB-FIRST.alteration.md", (
+            "Workflow step: **Set alteration**\n\n| Part | Lock |\n|---|---|\n| Title Page | Frozen |\n"
+            "| Summary | Set aside |\n\nThe check passes.\n"
+        ))
+        code, out = self.run_cli("block", str(bad))
+        self.assertEqual(code, 1)
+        self.assertIn("'Frozen'", out)
+        self.assertIn("'Set aside'", out)
+
     def test_vocabulary_in_block(self) -> None:
         path = self.write("IB-FIRST.placement.md", (
             "Workflow step: **Set placement**\n\n- Placement: floating. Lock: hard\n\nThe check passes.\n"

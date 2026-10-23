@@ -206,8 +206,18 @@ steps:
 open_items:
   - id: minted-step-names
     question: >-
-      Three steps carry no name in any source file: derive-spine, gather-notes
-      and point-to-guidance. Their names here are minted. Give each a smart name.
+      No Box file names three steps: derive-spine, gather-notes and
+      point-to-guidance. The Notion base tracker's "Workflow step" options do
+      name them: "Derive the spine", "Seek notes" and "File the guidance".
+      Confirm those are the names, and they replace the minted ones.
+  - id: notion-tracker-step-list
+    question: >-
+      The Notion base tracker's step list differs from this record. It has
+      "Test on a worked example" (not here), places "Tag stage and kind"
+      seventh (against the ruling tag-stage-and-kind-at-end), and puts Derive
+      the spine after Study through Rhizome. Which order is right, and is
+      "Test on a worked example" a step? Found in the IB-FIRST audit,
+      23 October 2026.
   - id: order-alteration-overlays
     question: >-
       Set alteration and Declare overlays both ran on 22 October 2026 and no

@@ -380,11 +380,36 @@ def check_names(reg: Registry, names: list[str], as_pattern: str | None = None) 
 
 # ── block ────────────────────────────────────────────────────────────────────
 
-STEP_LINE = re.compile(r"Workflow step:\s*\*\*(?P<name>[^*]+)\*\*")
-VOCAB_LINES = {
-    "placement": re.compile(r"\bPlacement:\s*([a-z]+)"),
-    "lock": re.compile(r"\bLock:\s*([a-z]+)"),
-}
+STEP_LINE = re.compile(r"workflow step:?\s*\*\*(?P<name>[^*]+)\*\*", re.IGNORECASE)
+CHECK_RESULT = re.compile(r"^#+\s*Check\b|^Result:|\bcheck (passes|fails)\b", re.IGNORECASE | re.MULTILINE)
+VOCAB_FIELDS = ("placement", "lock")
+INLINE_FIELD = re.compile(r"\b(Placement|Lock):\s*([^.|\n]+)")
+
+
+def vocab_findings(reg: Registry, name: str, text: str) -> list[tuple[str, str, str]]:
+    """Placement and lock values, inline ("Lock: hard") and in table columns headed Placement or Lock."""
+    values: list[tuple[str, str]] = [(field.lower(), value) for field, value in INLINE_FIELD.findall(text)]
+    columns: dict[int, str] = {}
+    for line in text.splitlines():
+        if not line.lstrip().startswith("|"):
+            columns = {}
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if all(re.fullmatch(r":?-{3,}:?", c) for c in cells if c):
+            continue
+        if not columns and any(c.lower() in VOCAB_FIELDS for c in cells):
+            columns = {i: c.lower() for i, c in enumerate(cells) if c.lower() in VOCAB_FIELDS}
+            continue
+        values += [(field, cells[i]) for i, field in columns.items() if i < len(cells)]
+    f = Findings()
+    for field, value in values:
+        value = value.strip().strip("*").strip()
+        if not value or value in {"—", "-"}:
+            continue
+        allowed = [v.lower() for v in reg.vocab[field]]
+        if not any(value.lower().startswith(v) for v in allowed):
+            f.block(name, f"{field} value {value!r} does not start with a value in vocabulary {reg.vocab[field]}")
+    return f.items
 
 
 def check_block(reg: Registry, path: Path, workflow: str = "WF-template-creation") -> Findings:
@@ -402,12 +427,12 @@ def check_block(reg: Registry, path: Path, workflow: str = "WF-template-creation
             f.block(name, f"names workflow step {m.group('name')!r}, which is not in {workflow}. "
                           "If the workflow changed, record the change first.")
     else:
-        # Fall back to the file's suffix.
+        # Fall back to the file's suffix: the first step that writes a file of this kind.
         for s in wf["steps"]:
-            for pattern in str(s.get("output") or "").split(";"):
-                suffix = pattern.strip().replace("<LABEL>", "")
-                if suffix and suffix.split(" ")[0] and name.endswith(suffix.split(" ")[0]):
-                    step = s
+            outputs = [p.strip().split(" ")[0] for p in str(s.get("output") or "").split(";") if p.strip()]
+            if any(name.endswith(o.replace("<LABEL>", "")) for o in outputs):
+                step = s
+                break
         if step is None:
             f.warn(name, "no 'Workflow step:' line and no step writes a file of this kind")
         elif step.get("name_standing") == "recorded":
@@ -418,14 +443,11 @@ def check_block(reg: Registry, path: Path, workflow: str = "WF-template-creation
         rx = [re.compile("^" + re.escape(o).replace(re.escape("<LABEL>"), r"[A-Z0-9]+(?:-[A-Z0-9]+)+") + "$") for o in outputs]
         if rx and not any(r.match(name) for r in rx):
             f.block(name, f"step {step['name']!r} writes {', '.join(outputs)}; this file is named {name}")
-        if step.get("check") and "check" not in text.lower():
-            f.warn(name, f"step {step['name']!r} has a check; the file records no check result")
+        if step.get("check") and not CHECK_RESULT.search(text):
+            f.warn(name, f"step {step['name']!r} has a check; the file records no check result "
+                         "(a 'Check' heading, a 'Result:' line, or 'the check passes')")
 
-    for vocab, rx in VOCAB_LINES.items():
-        for value in rx.findall(text):
-            if value not in {v.split(" ")[0] for v in reg.vocab[vocab]}:
-                f.block(name, f"{vocab} value {value!r} is not in vocabulary {reg.vocab[vocab]}")
-
+    f.items.extend(vocab_findings(reg, name, text))
     f.items.extend(check_names(reg, [name]).items)
     return f
 
