@@ -1,0 +1,97 @@
+# Controlled vocabularies the agent checks language against.
+#
+# Each vocabulary names its source and standing. A value outside its list is a
+# finding. Adding a value is a governance act (new-vocabulary-is-a-governance-act):
+# record it here with the ruling that admits it.
+
+vocabularies:
+  standing:
+    values: [ruled, proposed, observed, held]
+    standing: observed
+    source: IB-FIRST.notes.md; IB-FIRST.slots.md
+  name-standing:
+    values: [recorded, minted]
+    standing: observed
+    source: SOP-Disposition-of-Settled-Information.md (open item "Minted labels")
+  publishing-status:
+    values: [placeholder, drafting, pre-reviewed, published]
+    ordered: true
+    standing: observed
+    source: README-base-map.md
+  step-level:
+    values: [report, component]
+    standing: observed
+    source: IB-FIRST building blocks
+  route:
+    values: [decision, controlled language, algorithm, binding]
+    standing: observed
+    source: IB-FIRST.slots.md (EH-OS-Intent.yaml, the four routes)
+  placement:
+    values: [pinned, flexible]
+    standing: ruled
+    source: IB-FIRST.placement.md (Ingrid, 22 October 2026)
+  lock:
+    values: [hard, soft, set at component level]
+    standing: ruled
+    source: IB-FIRST.alteration.md (Ingrid, 21 October 2026)
+  section-state:
+    values: [on, off]
+    standing: observed
+    source: IB-FIRST.base.md
+  guidance-role:
+    values: [governing source, regional version, related]
+    standing: observed
+    source: README-guidance-map.md
+  base-family:
+    values: [BRF, IB, PROT, CSR, SAF, M2, DES, LCM]
+    standing: observed
+    source: README-base-map.md
+  base-tier:
+    values: [Launch, Website, Full]
+    standing: observed
+    source: README-base-map.md
+  segment:
+    values: [Pre-IND, Pre-FIH, EOP1, EOP2, SPA, Pre-NDA, Review cycle, Post-market, Others]
+    standing: observed
+    source: README-base-map.md
+  material-class:
+    values: [public, synthetic]
+    standing: observed
+    source: README.md (Molecular Frontiers worked examples)
+  field-state:
+    values: [fixed constraint, dynamic, settled, awaiting match, curation]
+    standing: proposed
+    source: SOP-Disposition-of-Settled-Information.md (proposed, unratified)
+  evidence-tier:
+    values: [sourced, reported, unconfirmed]
+    standing: proposed
+    source: SOP-Disposition-of-Settled-Information.md
+  element-state:
+    values: [draft, SME-confirmed, snapshot]
+    standing: proposed
+    source: SOP-Disposition-of-Settled-Information.md
+  provenance-class:
+    values: [received, documented, company position, curated, derived]
+    standing: proposed
+    source: SOP-Disposition-of-Settled-Information.md
+  mod-status:
+    values: [Proposed, Building, Mod draft, In test, Released, Retired]
+    ordered: true
+    standing: proposed
+    source: EH-STD-MODS Mods Register.docx (v0.1 draft)
+  mod-workflow-stage:
+    values: [Creation, Production, Review, Editing]
+    standing: proposed
+    source: EH-STD-MODS Mods Register.docx (v0.1 draft)
+  mod-reach:
+    values: [Site-wide, Template work only, Named workspace]
+    standing: proposed
+    source: EH-STD-MODS Mods Register.docx (v0.1 draft)
+  mod-surface:
+    values: [Hook on tool calls, Slash command, Panel/pane, Status line, Band, Toast]
+    standing: proposed
+    source: EH-STD-MODS Mods Register.docx (v0.1 draft)
+  change-domain:
+    values: [tooling, filing, indexing, sourcing, naming, vocabulary, workflow]
+    standing: observed
+    source: governance/rulings/filing-rulings-index.yaml

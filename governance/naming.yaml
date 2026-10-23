@@ -1,0 +1,54 @@
+# Naming patterns. `govcheck names` tests names against these.
+# Each pattern is a Python regular expression matched against the full name.
+
+patterns:
+  - id: base-label
+    applies_to: Report base label
+    regex: '^(BRF|IB|PROT|CSR|SAF|M2|DES|LCM)(-[A-Z0-9]+)+$'
+    example: IB-FIRST
+    source: README-base-map.md
+  - id: base-folder
+    applies_to: Report base folder
+    regex: '^(BRF|IB|PROT|CSR|SAF|M2|DES|LCM)(-[A-Z0-9]+)+ [^/]+$'
+    example: IB-FIRST First investigator's brochure
+    source: README-base-map.md
+  - id: building-block
+    applies_to: File in building-blocks/
+    regex: '^(BRF|IB|PROT|CSR|SAF|M2|DES|LCM)(-[A-Z0-9]+)+\.(spine|notes|guidance|study|rhizome-report|components|slots|placement|alteration|overlays)\.md$'
+    example: IB-FIRST.slots.md
+    source: IB-FIRST building blocks
+  - id: base-file
+    applies_to: Base placeholder or assembled base
+    regex: '^(BRF|IB|PROT|CSR|SAF|M2|DES|LCM)(-[A-Z0-9]+)+\.base\.md$'
+    example: IB-FIRST.base.md
+    source: README-base-map.md
+  - id: eh-standard
+    applies_to: EditHealth standard document
+    regex: '^EH-STD-[A-Z0-9-]+(-[a-z0-9-]+)? [^/]+\.(docx|md|pdf)$'
+    example: EH-STD-MODS Mods Register.docx
+    source: EH Standards
+  - id: mod-id
+    applies_to: Mod ID
+    regex: '^MOD-[a-z0-9]+(-[a-z0-9]+)*$'
+    example: MOD-sdtm-ct-update
+    source: EH-STD-MODS Mods Register.docx
+  - id: slot-id
+    applies_to: Slot, ruling, change and step IDs
+    regex: '^[a-z0-9]+(-[a-z0-9]+)*$'
+    example: title-page-edition-number
+    standing: observed
+    source: IB-FIRST.slots.md
+  - id: guidance-section
+    applies_to: Guidance section extract
+    regex: '^[A-Z]+-[A-Za-z0-9()]+-[0-9.]+-[A-Za-z0-9()]+-\d{4}-\d{2}\.pdf$'
+    example: ICH-M11Template-11.7-DataGovernance-2025-11.pdf
+    source: guidance-library/sections
+
+forbidden:
+  - id: no-slash
+    regex: '/'
+    reason: Box rejects /; use - (hyphen-replaces-slash)
+  - id: no-positional-prefix
+    regex: '^(\d+[-_. ]|step[-_ ]?\d+|v\d+[-_ ]final)'
+    reason: Labels are semantic, not positional (labels-semantic-not-positional)
+    exempt: [guidance-section]
