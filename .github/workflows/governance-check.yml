@@ -1,0 +1,27 @@
+name: Governance check
+
+on:
+  pull_request:
+    paths:
+      - "governance/**"
+      - "tools/**"
+      - ".github/workflows/governance-check.yml"
+  push:
+    branches: [main]
+    paths:
+      - "governance/**"
+      - "tools/**"
+
+jobs:
+  govcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml==6.0.2
+      - name: Validate governance records (fails on any unrecorded workflow change)
+        run: python tools/govcheck.py validate
+      - name: Unit tests
+        run: python -m unittest discover -s tools -v

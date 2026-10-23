@@ -1,0 +1,92 @@
+# Where things live. The agent checks every artifact against its home here.
+#
+# Box folder ids read 23 October 2026. A home marked open has no ruling yet.
+
+systems:
+  box:
+    role: Working store for standards, guidance, bases while drafted, test data
+  notion:
+    role: Indexes and libraries (IB Section Inventory, Shared Components, base template tracker, Evidence Envelope items)
+  github:
+    role: Released bases (from Rule and publish), released mods (component register), this governance registry
+  lucidchart:
+    role: Diagrams (ruling diagrams-in-lucidchart)
+  rhizome:
+    role: Research (ruling research-through-rhizome)
+  eh-os:
+    role: Local working system at C:\Users\ingri\EH OS\; notes stay there and are pointed to
+
+homes:
+  - artifact: EditHealth standard (EH-STD-*)
+    system: box
+    path: EH Standards
+    box_folder_id: "427541512490"
+  - artifact: Mod specification
+    system: box
+    path: EH Standards › Mods
+    box_folder_id: "430408214338"
+    ruling: where-mod-specs-live
+  - artifact: SOP
+    system: box
+    path: EH Standards › SOPs
+    box_folder_id: "429722443197"
+    standing: observed
+    note: Folder is empty; SOP-Disposition-of-Settled-Information.md sits in _template structure instead. Open.
+  - artifact: Guidance document (filed source)
+    system: box
+    path: _template structure › guidance-library
+    box_folder_id: "429772681339"
+    index: README-guidance-map.md
+  - artifact: Report base and its building blocks (while drafting)
+    system: box
+    path: "_template structure › report-base-library › <FAMILY> <family title> › <LABEL> <title>"
+    box_folder_id: "429561301454"
+    index: README-base-map.md
+    ruling: base-held-in-box-until-rule-and-publish
+  - artifact: Report base (published)
+    system: github
+    path: open
+    ruling: base-held-in-box-until-rule-and-publish
+    note: Repository for published bases not yet named. Open.
+  - artifact: Program workspace
+    system: box
+    path: _template structure › pre-ind-program-template (copied per program)
+    box_folder_id: "401461957978"
+    ruling: report-base-library-not-copied
+  - artifact: Test data (synthetic)
+    system: box
+    path: EH Test Data
+    box_folder_id: "418405792636"
+  - artifact: Released mod source
+    system: github
+    path: GitHub component register (repository open)
+    ruling: mod-release-gate
+  - artifact: Mods register
+    system: box
+    path: EH Standards
+    box_folder_id: "427541512490"
+    note: Two copies exist (EH Standards and EH Standards › Mods). Which is the one copy is open.
+  - artifact: Rhizome report
+    system: notion
+    path: The Notion row of the work it serves (for a base, its row in the base template tracker)
+    ruling: rhizome-reports-and-diagrams-file-in-notion
+    note: A copy in Box is a misfiled duplicate; Box files point to the Notion row
+  - artifact: Diagram
+    system: notion
+    path: Drawn in Lucidchart; filed in Notion on the row or page of the work it serves
+    ruling: rhizome-reports-and-diagrams-file-in-notion; diagrams-in-lucidchart
+
+registers:
+  - name: Mods register
+    file: EH-STD-MODS Mods Register.docx
+    box_file_id: "2545336415592"
+  - name: Base map
+    file: README-base-map.md
+    box_file_id: "2540129294133"
+  - name: Guidance map
+    file: README-guidance-map.md
+    box_file_id: "2541475406063"
+  - name: Filing rulings index
+    file: governance/rulings/filing-rulings-index.yaml
+  - name: Template creation workflow
+    file: governance/workflows/template-creation.yaml

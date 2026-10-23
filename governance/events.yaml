@@ -1,0 +1,63 @@
+# Expected events. Each workflow step lists the events it must set off; the
+# agent checks that each one happened and reports any that did not.
+#
+# Writes to Box, Notion or GitHub need Ingrid's approval each time: the agent
+# reports a missing event and proposes the write; it does not make it.
+
+events:
+  - id: attach-rhizome-report-to-notion-row
+    does: File the saved Rhizome report on the base's row in Notion. No copy is kept in Box
+    system: notion
+    evidence: The base's Notion row carries the report, and the base's Box folder holds no copy
+    standing: ruled
+    ruling: rhizome-reports-and-diagrams-file-in-notion
+  - id: file-diagram-in-notion
+    does: File each Lucidchart diagram in Notion on the row or page of the work it serves
+    system: notion
+    evidence: The Notion row or page carries the Lucidchart diagram
+    standing: ruled
+    ruling: rhizome-reports-and-diagrams-file-in-notion
+  - id: file-new-guidance
+    does: >-
+      File any source the study needs in guidance-library and add its row to
+      README-guidance-map.md, with a blank Scope until Ingrid rules
+    system: box
+    evidence: File in guidance-library; row in the guidance map with its Box file id
+    standing: observed
+  - id: update-guidance-map
+    does: Add the base to the Bases column of each guidance-map row it uses
+    system: box
+    evidence: README-guidance-map.md names the base on each row
+    standing: observed
+  - id: open-overlay-tracker-row
+    does: Open a row in the Notion base template tracker for each overlay declared
+    system: notion
+    evidence: Tracker row per overlay
+    standing: observed
+  - id: update-base-map-status
+    does: Update the base's Status column in README-base-map.md to its publishing status
+    system: box
+    evidence: Status column matches the status line in <LABEL>.base.md
+    standing: observed
+  - id: commit-base-to-git
+    does: Commit the base to git; the Box file becomes a pointer to the commit
+    system: github
+    evidence: Commit exists; Box file holds the pointer
+    standing: ruled
+    ruling: base-held-in-box-until-rule-and-publish
+  - id: apply-metatags
+    does: Apply the EditHealth tag set to every part (MOD-metatag)
+    system: box
+    evidence: Tags present on every part
+    standing: proposed
+    note: Tag set in progress (Mods register). Check runs once the tag set is filed.
+  - id: index-new-files
+    does: Make every new file findable from its index (MOD-indexing)
+    system: box
+    evidence: Every file in the base folder appears in its index or pointer file
+    standing: proposed
+  - id: record-workflow-change
+    does: Record any change to a workflow as a change record before the changed workflow is used
+    system: github
+    evidence: govcheck validate passes
+    standing: observed

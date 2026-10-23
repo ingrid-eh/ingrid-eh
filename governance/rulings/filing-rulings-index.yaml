@@ -1,0 +1,263 @@
+# Filing rulings index — the governance rulings the agent enforces.
+#
+# Named in EH-STD-MODS Mods Register as a dependency of MOD-filing and the
+# filing-governance agent. Seeded 23 October 2026 from the Box files cited on
+# each entry. Only rulings that govern filing, indexing, naming, vocabulary,
+# sourcing, tooling, approval or the workflow itself are held here; rulings on
+# a base's content stay in that base's building blocks.
+#
+# standing: ruled = recorded with Ingrid's name; proposed = drafted, not
+# ruled; observed = a convention seen in the files, never ruled. Only ruled
+# entries block; proposed and observed entries warn.
+
+rulings:
+  # ── Tooling ──────────────────────────────────────────────────────────────
+  - id: research-through-rhizome
+    domain: tooling
+    ruling: Research is done through Rhizome AI.
+    ruled_by: Ingrid
+    date: 2026-10-23
+    standing: ruled
+    source: {file: "Claude Code session, 23 October 2026"}
+  - id: diagrams-in-lucidchart
+    domain: tooling
+    ruling: Diagrams are drawn in Lucidchart.
+    ruled_by: Ingrid
+    date: 2026-10-23
+    standing: ruled
+    source: {file: "Claude Code session, 23 October 2026"}
+
+  - id: rhizome-reports-and-diagrams-file-in-notion
+    domain: filing
+    ruling: >-
+      Rhizome AI reports and Lucidchart diagrams are filed in Notion, not Box.
+      A research report is filed on the Notion row of the work it serves.
+    ruled_by: Ingrid
+    date: 2026-10-23
+    standing: ruled
+    source: {file: "Claude Code session, 23 October 2026 (corrects the Box home recorded earlier that day)"}
+
+  # ── Filing and locations ─────────────────────────────────────────────────
+  - id: where-mod-specs-live
+    domain: filing
+    ruling: Mod specifications live in Box › EH Standards › Mods.
+    ruled_by: Ingrid
+    date: 2026-10-23
+    standing: ruled
+    source: {box_file_id: "2545336415592", file: EH-STD-MODS Mods Register.docx}
+  - id: no-folder-without-ingrids-approval-by-name
+    domain: filing
+    ruling: No folder is created without Ingrid's approval, given for that folder by name.
+    ruled_by: Ingrid
+    date: null
+    standing: ruled
+    source: {box_file_id: "2545808471243", file: EH-STD-MOD-sdtm-ct-update SDTM CT Update Spec.docx}
+  - id: specs-indexed-in-notion
+    domain: indexing
+    ruling: Each EH Standards spec has an index entry in Notion; writing it needs owner approval.
+    ruled_by: Ingrid
+    date: 2026-10-23
+    standing: ruled
+    source: {box_file_id: "2545808471243", file: EH-STD-MOD-sdtm-ct-update SDTM CT Update Spec.docx}
+  - id: base-held-in-box-until-rule-and-publish
+    domain: filing
+    ruling: >-
+      A base is held in Box while it is drafted and committed to git at "Rule
+      and publish", when the Box file becomes a pointer. Box keeps earlier versions.
+    ruled_by: Ingrid
+    date: 2026-10-22
+    standing: ruled
+    source: {box_file_id: "2540131330871", file: IB-FIRST.base.md}
+  - id: mod-release-gate
+    domain: filing
+    ruling: >-
+      A mod moves from Box to the GitHub component register on test pass plus
+      peer reviewer and owner sign-off.
+    ruled_by: Ingrid
+    date: null
+    standing: proposed
+    source: {box_file_id: "2545336415592", file: "EH-STD-MODS Mods Register.docx (v0.1 draft)"}
+  - id: report-base-library-not-copied
+    domain: filing
+    ruling: >-
+      The report-base-library is never copied per program. The program workspace
+      is pre-ind-program-template; each base records its eCTD target so the two
+      trees cross-reference.
+    ruled_by: null
+    date: 2026-10-21
+    standing: observed
+    source: {box_file_id: "2540129294133", file: README-base-map.md}
+  - id: shelf-copies-retained
+    domain: filing
+    ruling: >-
+      The originals on the hold EH OS\00_Library shelf stay until the
+      one-copy handoff is done; EH OS references to them must not be broken.
+    ruled_by: null
+    date: 2026-10-21
+    standing: observed
+    source: {box_file_id: "2541475406063", file: README-guidance-map.md}
+  - id: pointers-not-copies
+    domain: filing
+    ruling: >-
+      Each document and building block is held in one place. Other places hold
+      a pointer, never a copy.
+    ruled_by: null
+    date: 2026-10-21
+    standing: observed
+    source: {box_file_id: "2541475406063", file: README-guidance-map.md}
+
+  # ── Sourcing ─────────────────────────────────────────────────────────────
+  - id: templates-from-filed-sources-only
+    domain: sourcing
+    ruling: >-
+      Templates are built from source documents filed in guidance-library, never
+      from memory. A finding resting on an unfiled source stays study material.
+    ruled_by: null
+    date: 2026-10-21
+    standing: observed
+    source: {box_file_id: "2541475406063", file: README-guidance-map.md}
+  - id: rhizome-binds-after-validation
+    domain: sourcing
+    ruling: Rhizome searches bind only once Ingrid validates them.
+    ruled_by: Ingrid
+    date: 2026-10-21
+    standing: ruled
+    source: {box_file_id: "2541840707636", file: IB-FIRST.study.md}
+  - id: conflicts-ingrid-decides
+    domain: sourcing
+    ruling: Where filed documents conflict, Ingrid decides.
+    ruled_by: Ingrid
+    date: 2026-10-21
+    standing: ruled
+    source: {box_file_id: "2541475406063", file: README-guidance-map.md}
+  - id: scope-is-ingrids-ruling
+    domain: sourcing
+    ruling: >-
+      The regions a guidance document applies to are Ingrid's ruling for each
+      document, never assumed from the issuer. Scope stays blank until she rules.
+    ruled_by: Ingrid
+    date: 2026-10-21
+    standing: ruled
+    source: {box_file_id: "2541475406063", file: README-guidance-map.md}
+  - id: draft-marker-never-changes-value
+    domain: vocabulary
+    ruling: "* marks draft guidance. The marker never changes a value."
+    ruled_by: null
+    date: 2026-10-21
+    standing: observed
+    source: {box_file_id: "2541475406063", file: README-guidance-map.md}
+  - id: read-structure-from-guidance-body
+    domain: sourcing
+    ruling: >-
+      A governed document's structure is read from inside the guidance body,
+      never from its contents page.
+    ruled_by: Ingrid
+    date: 2026-09-20
+    standing: ruled
+    source: {box_file_id: "2541836277526", file: IB-FIRST.notes.md}
+  - id: standing-ruled-proposed-observed
+    domain: vocabulary
+    ruling: >-
+      Ruled binds and is carried as settled. Proposed and observed enter as
+      material for curation, never as settled.
+    ruled_by: null
+    date: 2026-10-21
+    standing: observed
+    source: {box_file_id: "2541836277526", file: IB-FIRST.notes.md}
+
+  # ── Naming and vocabulary ────────────────────────────────────────────────
+  - id: labels-semantic-not-positional
+    domain: naming
+    ruling: Labels are semantic, not positional.
+    ruled_by: null
+    date: 2026-10-21
+    standing: observed
+    source: {box_file_id: "2540129294133", file: README-base-map.md}
+  - id: field-keys-are-smart-names
+    domain: naming
+    ruling: >-
+      A field is keyed by its smart name, never a position. Steps are named by
+      what they do, not by position. Labels Claude minted are replaced with
+      smart names.
+    ruled_by: null
+    date: 2026-10-14
+    standing: proposed
+    source: {box_file_id: "2526954347826", file: SOP-Disposition-of-Settled-Information.md}
+  - id: hyphen-replaces-slash
+    domain: naming
+    ruling: "- replaces / in names (Box rejects /)."
+    ruled_by: null
+    date: 2026-10-21
+    standing: observed
+    source: {box_file_id: "2540129294133", file: README-base-map.md}
+  - id: new-vocabulary-is-a-governance-act
+    domain: vocabulary
+    ruling: >-
+      When no term fits, an SME decides; new vocabulary is a governance act.
+    ruled_by: null
+    date: 2026-10-14
+    standing: proposed
+    source: {box_file_id: "2526954347826", file: SOP-Disposition-of-Settled-Information.md}
+
+  # ── Workflow ─────────────────────────────────────────────────────────────
+  - id: tag-stage-and-kind-at-end
+    domain: workflow
+    ruling: The step "Tag stage and kind" is the last step of the workflow.
+    ruled_by: Ingrid
+    date: 2026-10-22
+    standing: ruled
+    enforce: {last_step: tag-stage-and-kind}
+    source: {box_file_id: "2542146135948", file: IB-FIRST.placement.md}
+  - id: overlays-may-add
+    domain: workflow
+    ruling: >-
+      Overlays may prune an ICH spine and may add content within an existing
+      section. A structure whose sections differ from the spine needs its own base.
+    ruled_by: Ingrid
+    date: 2026-10-22
+    standing: ruled
+    source: {box_file_id: "2542161340288", file: IB-FIRST.overlays.md}
+  - id: modality-is-an-overlay
+    domain: workflow
+    ruling: The modality is an overlay; it never becomes a base, and folder names carry no modality.
+    ruled_by: Ingrid
+    date: 2026-10-21
+    standing: ruled
+    source: {box_file_id: "2540897390281", file: README.md (Molecular Frontiers worked examples)}
+  - id: shared-components-index-only
+    domain: workflow
+    ruling: >-
+      Shared Components serve only as an index of what a part is about. A
+      component is marked source-confirmed once rebuilt from a filed source.
+    ruled_by: Ingrid
+    date: 2026-10-21
+    standing: ruled
+    source: {box_file_id: "2542068906936", file: IB-FIRST.components.md}
+  - id: route-ruled-only-if-it-cites-a-ruling
+    domain: workflow
+    ruling: A route whose record cites a ruling by Ingrid is ruled. Every other route is proposed.
+    ruled_by: Ingrid
+    date: 2026-10-22
+    standing: ruled
+    source: {box_file_id: "2542099533107", file: IB-FIRST.slots.md}
+  - id: placement-default-pinned
+    domain: workflow
+    ruling: Every part is pinned to its source section unless ruled flexible.
+    ruled_by: Ingrid
+    date: 2026-10-22
+    standing: ruled
+    source: {box_file_id: "2542146135948", file: IB-FIRST.placement.md}
+  - id: flexible-moves-recorded
+    domain: workflow
+    ruling: Each move of a flexible part is recorded.
+    ruled_by: Ingrid
+    date: 2026-10-21
+    standing: ruled
+    source: {box_file_id: "2542068906936", file: IB-FIRST.components.md}
+  - id: alteration-default-nothing
+    domain: workflow
+    ruling: By default nothing can be altered; alteration is defined section by section.
+    ruled_by: Ingrid
+    date: 2026-10-21
+    standing: ruled
+    source: {box_file_id: "2542152013935", file: IB-FIRST.alteration.md}
